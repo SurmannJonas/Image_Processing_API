@@ -1,26 +1,46 @@
 import express from 'express';
-import { resizeJpeg } from '../../utilities/sharpModule';
-//import generateSemiTransparentRedJpeg from '../../utilities/sharpModule';
+import resizeImage from '../../utilities/sharpModule';
+import path from 'path';
+import fs from 'fs';
+import util from 'util';
 
 const images = express.Router();
+const statAsync = util.promisify(fs.stat);
 
-images.get('/', (req, res, next) => {
-  console.log(`/images was visited:`, req.originalUrl);
-  next();
-});
-
-images.get('/api/images', async (req, res) => {
-  const { filename, width, height } = req.query;
-
+// Endpoint for resizing and serving images
+images.get('/', async (req, res) => {
   try {
-    // Generate the semi-transparent red image using the imported function
-    await resizeJpeg(Number(width), Number(height), `processed-images/${filename}-${width}x${height}.jpeg`);
+    // Get the filename, width, and height from the request query parameters
+    const filename = req.query.filename as unknown as string;
+    const width = parseInt(req.query.width as unknown as string);
+    const height = parseInt(req.query.height as unknown as string);
 
-    // Send the processed image as a response
-    res.sendFile(`processed-images/${filename}-${width}x${height}.jpeg`);
+    // Define the paths for the original and resized images
+    const pathImage = path.resolve(__dirname, '../../../images/full/' + filename + '.jpeg');
+    const outputPath = path.resolve(__dirname, '../../../src/routes/api/' + filename + '-resized.jpeg');
+
+    console.log(width);
+
+    try {
+      // Check if the resized image already exists
+      await statAsync(outputPath);
+      console.log('The file exists.');
+    } catch (err) {
+      console.log('The file does not exist.');
+
+      // Resize the image using the resizeImage function
+      const resizedImage = await resizeImage(pathImage, width, height);
+
+      // Save the resized image to the output path
+      await fs.promises.writeFile(outputPath, resizedImage);
+    }
+
+    // Send the resized image as a response
+    res.sendFile(outputPath);
+    console.log('Resized image saved successfully!');
   } catch (error) {
-    // Handle any errors that occur during image processing
-    res.status(500).json({ error: 'Failed to process the image' });
+    console.log('Filename NOT found or NOT correct');
+    throw error;
   }
 });
 

@@ -40,36 +40,57 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
-var sharpModule_1 = require("../../utilities/sharpModule");
-//import generateSemiTransparentRedJpeg from '../../utilities/sharpModule';
+var sharpModule_1 = __importDefault(require("../../utilities/sharpModule"));
+var path_1 = __importDefault(require("path"));
+var fs_1 = __importDefault(require("fs"));
+var util_1 = __importDefault(require("util"));
 var images = express_1.default.Router();
-images.get('/', function (req, res, next) {
-    console.log("/images was visited:", req.originalUrl);
-    next();
-});
-images.get('/api/images', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, filename, width, height, error_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+var statAsync = util_1.default.promisify(fs_1.default.stat);
+// Endpoint for resizing and serving images
+images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var filename, width, height, pathImage, outputPath, err_1, resizedImage, error_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _a = req.query, filename = _a.filename, width = _a.width, height = _a.height;
-                _b.label = 1;
+                _a.trys.push([0, 7, , 8]);
+                filename = req.query.filename;
+                width = parseInt(req.query.width);
+                height = parseInt(req.query.height);
+                pathImage = path_1.default.resolve(__dirname, '../../../images/full/' + filename + '.jpeg');
+                outputPath = path_1.default.resolve(__dirname, '../../../src/routes/api/' + filename + '-resized.jpeg');
+                console.log(width);
+                _a.label = 1;
             case 1:
-                _b.trys.push([1, 3, , 4]);
-                // Generate the semi-transparent red image using the imported function
-                return [4 /*yield*/, (0, sharpModule_1.resizeJpeg)(Number(width), Number(height), "processed-images/".concat(filename, "-").concat(width, "x").concat(height, ".jpeg"))];
+                _a.trys.push([1, 3, , 6]);
+                // Check if the resized image already exists
+                return [4 /*yield*/, statAsync(outputPath)];
             case 2:
-                // Generate the semi-transparent red image using the imported function
-                _b.sent();
-                // Send the processed image as a response
-                res.sendFile("processed-images/".concat(filename, "-").concat(width, "x").concat(height, ".jpeg"));
-                return [3 /*break*/, 4];
+                // Check if the resized image already exists
+                _a.sent();
+                console.log('The file exists.');
+                return [3 /*break*/, 6];
             case 3:
-                error_1 = _b.sent();
-                // Handle any errors that occur during image processing
-                res.status(500).json({ error: 'Failed to process the image' });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                err_1 = _a.sent();
+                console.log('The file does not exist.');
+                return [4 /*yield*/, (0, sharpModule_1.default)(pathImage, width, height)];
+            case 4:
+                resizedImage = _a.sent();
+                // Save the resized image to the output path
+                return [4 /*yield*/, fs_1.default.promises.writeFile(outputPath, resizedImage)];
+            case 5:
+                // Save the resized image to the output path
+                _a.sent();
+                return [3 /*break*/, 6];
+            case 6:
+                // Send the resized image as a response
+                res.sendFile(outputPath);
+                console.log('Resized image saved successfully!');
+                return [3 /*break*/, 8];
+            case 7:
+                error_1 = _a.sent();
+                console.log('Filename NOT found or NOT correct');
+                throw error_1;
+            case 8: return [2 /*return*/];
         }
     });
 }); });

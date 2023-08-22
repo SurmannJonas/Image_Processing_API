@@ -1,19 +1,28 @@
 import sharp from 'sharp';
+import path from 'path';
+import fs from 'fs';
 
-//import sharp, { CreateOptions } from 'sharp';
+// Import the necessary libraries
 
-export function resizeJpeg(width: number, height: number, outputPath: string): Promise<void> {
-  const createOptions: CreateOptions = {
-    width,
-    height,
-    channels: 4,
-    background: { r: 255, g: 0, b: 0, alpha: 128 },
-  };
+// Define the function to resize the image
+async function resizeImage(inputImage: string, widthImage: number, heightImage: number): Promise<Buffer> {
+  try {
+    // Use the sharp library to resize the image
+    const sizedImage = await sharp(inputImage)
+      .resize({
+        width: widthImage,
+        height: heightImage
+      })
+      .toBuffer();
 
-  return sharp({ create: createOptions })
-    .toFormat('jpeg')
-    .toFile(outputPath);
+    // Return the resized image
+    return sizedImage;
+  } catch (error) {
+    // Log any errors that occur during the resizing process
+    console.log(error);
+    throw error;
+  }
 }
 
-
-//tetsnjknknjk
+// Export the resizeImage function as the default export of this module
+export default resizeImage;
