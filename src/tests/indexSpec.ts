@@ -1,7 +1,5 @@
 // Import the 'app' module from the '../index' file
 import app from '../index';
-// Import the 'images' module from the '../routes/api/images' file
-import images from '../routes/api/images';
 // Import the 'sharp' module from the '../utilities/sharpModule' file
 import resizeImage from '../utilities/sharpModule';
 // Import the 'supertest' module
@@ -10,8 +8,7 @@ import supertest from 'supertest';
 const request = supertest(app);
 // Import the 'path' module
 import path from 'path';
-// Import the 'fs' module
-import fs from 'fs';
+
 
 // Start describing the test suite
 describe('Endpoint Test', () => {

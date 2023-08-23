@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express';
 import routes from './routes/index';
 
 
@@ -12,5 +12,6 @@ app.use('/api', routes);
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
 });
+
 
 export default app;

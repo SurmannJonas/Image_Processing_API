@@ -39,8 +39,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var sharp_1 = __importDefault(require("sharp"));
 // Import the necessary libraries
+var sharp_1 = __importDefault(require("sharp"));
 // Define the function to resize the image
 function resizeImage(inputImage, widthImage, heightImage) {
     return __awaiter(this, void 0, void 0, function () {

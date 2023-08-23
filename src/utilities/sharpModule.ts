@@ -1,8 +1,6 @@
-import sharp from 'sharp';
-import path from 'path';
-import fs from 'fs';
-
 // Import the necessary libraries
+import sharp from 'sharp';
+
 
 // Define the function to resize the image
 async function resizeImage(inputImage: string, widthImage: number, heightImage: number): Promise<Buffer> {
