@@ -40,6 +40,7 @@ describe('Testing image processing', () => {
       // Test that an error is thrown when the wrong filename is provided
       await resizeImage(inputImageWrong, width, height);
       fail('Promise should have been rejected'); // fail the test if the promise is not rejected
+    // Type 'any' is ONLY used, because the type of the error is unknown, until an error occurs 
     } catch (error: any) {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe(
