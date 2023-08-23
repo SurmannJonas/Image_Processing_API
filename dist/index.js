@@ -13,8 +13,4 @@ app.use('/api', index_1.default);
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));
 });
-//Test function for Jasmine Testing
-var myFunc = function (num) {
-    return num * num;
-};
-exports.default = myFunc;
+exports.default = app;

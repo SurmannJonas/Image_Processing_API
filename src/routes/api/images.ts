@@ -21,6 +21,7 @@ images.get('/', async (req, res) => {
 
     console.log(width);
 
+    //Caching mechanism - If a resized image already exists, this file is taken, instead of generating a new resized image
     try {
       // Check if the resized image already exists
       await statAsync(outputPath);
