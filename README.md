@@ -23,7 +23,7 @@ This project is an Image Processing API that allows users to resize and process 
 - GET /api/images/resize: Resizes an image and saves it to disk. Accepts query parameters `filename`, `width`, and `height`. Returns the resized image.
 
 ## Tests
-To run the tests, use the following command: `npm test`
+To run the tests, use the following command: `npm run test`
 
 ## Contributing
 Contributions are welcome! If you would like to contribute to this project, please follow these steps:
