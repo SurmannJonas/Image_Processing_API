@@ -1,15 +1,18 @@
 // Import the necessary libraries
-import sharp from 'sharp';
-
+import sharp from "sharp";
 
 // Define the function to resize the image
-async function resizeImage(inputImage: string, widthImage: number, heightImage: number): Promise<Buffer> {
+async function resizeImage(
+  inputImage: string,
+  widthImage: number,
+  heightImage: number,
+): Promise<Buffer> {
   try {
     // Use the sharp library to resize the image
     const sizedImage = await sharp(inputImage)
       .resize({
         width: widthImage,
-        height: heightImage
+        height: heightImage,
       })
       .toBuffer();
 

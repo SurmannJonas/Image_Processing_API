@@ -50,32 +50,32 @@ var request = (0, supertest_1.default)(index_1.default);
 // Import the 'path' module
 var path_1 = __importDefault(require("path"));
 // Start describing the test suite
-describe('Endpoint Test', function () {
+describe("Endpoint Test", function () {
     // Start describing the test case
-    it('should return the expected response', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("should return the expected response", function () { return __awaiter(void 0, void 0, void 0, function () {
         var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, request.get('/api')];
+                case 0: return [4 /*yield*/, request.get("/api")];
                 case 1:
                     response = _a.sent();
                     // Assert that the response status is 200
                     expect(response.status).toBe(200);
                     // Assert that the response text is equal to 'Main API Route'
-                    expect(response.text).toEqual('Main API Route');
+                    expect(response.text).toEqual("Main API Route");
                     return [2 /*return*/];
             }
         });
     }); });
 });
-describe('Testing image processing', function () {
+describe("Testing image processing", function () {
     // Define the input image path
-    var inputImage = path_1.default.join(__dirname, '../../images/full/fjord.jpeg'); // Filename of input image
-    var inputImageWrong = path_1.default.join(__dirname, '../../images/full/wrong_fjord.jpeg'); // Wrong filename of input image
+    var inputImage = path_1.default.join(__dirname, "../../images/full/fjord.jpeg"); // Filename of input image
+    var inputImageWrong = path_1.default.join(__dirname, "../../images/full/wrong_fjord.jpeg"); // Wrong filename of input image
     // Define the desired width and height for resizing
     var width = 500;
     var height = 500;
-    it('Throws a missing input error if the wrong filename is provided', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("Throws a missing input error if the wrong filename is provided", function () { return __awaiter(void 0, void 0, void 0, function () {
         var error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -86,18 +86,18 @@ describe('Testing image processing', function () {
                 case 1:
                     // Test that an error is thrown when the wrong filename is provided
                     _a.sent();
-                    fail('Promise should have been rejected'); // fail the test if the promise is not rejected
+                    fail("Promise should have been rejected"); // fail the test if the promise is not rejected
                     return [3 /*break*/, 3];
                 case 2:
                     error_1 = _a.sent();
                     expect(error_1).toBeInstanceOf(Error);
-                    expect(error_1.message).toBe('Input file is missing: /Users/jonassurmann/Documents/Udacity/FullStack_JS/Image_Processing_API/images/full/wrong_fjord.jpeg');
+                    expect(error_1.message).toBe("Input file is missing: /Users/jonassurmann/Documents/Udacity/FullStack_JS/Image_Processing_API/images/full/wrong_fjord.jpeg");
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
         });
     }); });
-    it('Resolves successfully when provided the right filename, height, and width parameters', function () { return __awaiter(void 0, void 0, void 0, function () {
+    it("Resolves successfully when provided the right filename, height, and width parameters", function () { return __awaiter(void 0, void 0, void 0, function () {
         var result;
         return __generator(this, function (_a) {
             switch (_a.label) {

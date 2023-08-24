@@ -11,8 +11,8 @@ This project is an Image Processing API that allows users to resize and process 
 - [License](#license)
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/your-username/image-processing-api.git`
-2. Navigate to the project directory: `cd image-processing-api`
+1. Clone the repository: `git clone https://github.com/SurmannJonas/Image_Processing_API.git`
+2. Navigate to the project directory: `cd Image_Processing_API`
 3. Install dependencies: `npm install`
 
 ## Usage

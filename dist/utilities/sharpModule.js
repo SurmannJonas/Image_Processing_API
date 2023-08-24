@@ -52,7 +52,7 @@ function resizeImage(inputImage, widthImage, heightImage) {
                     return [4 /*yield*/, (0, sharp_1.default)(inputImage)
                             .resize({
                             width: widthImage,
-                            height: heightImage
+                            height: heightImage,
                         })
                             .toBuffer()];
                 case 1:

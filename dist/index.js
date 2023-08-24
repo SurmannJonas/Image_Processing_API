@@ -8,7 +8,7 @@ var index_1 = __importDefault(require("./routes/index"));
 var app = (0, express_1.default)();
 var port = 3000;
 // Localhost connected
-app.use('/api', index_1.default);
+app.use("/api", index_1.default);
 // start the Express server
 app.listen(port, function () {
     console.log("server started at http://localhost:".concat(port));

@@ -47,7 +47,7 @@ var util_1 = __importDefault(require("util"));
 var images = express_1.default.Router();
 var statAsync = util_1.default.promisify(fs_1.default.stat);
 // Endpoint for resizing and serving images
-images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+images.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var filename, width, height, pathImage, outputPath, err_1, resizedImage, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -56,8 +56,8 @@ images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 filename = req.query.filename;
                 width = parseInt(req.query.width);
                 height = parseInt(req.query.height);
-                pathImage = path_1.default.resolve(__dirname, '../../../images/full/' + filename + '.jpeg');
-                outputPath = path_1.default.resolve(__dirname, '../../../src/routes/api/' + filename + '-resized.jpeg');
+                pathImage = path_1.default.resolve(__dirname, "../../../images/full/" + filename + ".jpeg");
+                outputPath = path_1.default.resolve(__dirname, "../../../src/routes/api/" + filename + "-resized.jpeg");
                 console.log(width);
                 _a.label = 1;
             case 1:
@@ -67,11 +67,11 @@ images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
             case 2:
                 // Check if the resized image already exists
                 _a.sent();
-                console.log('The file exists.');
+                console.log("The file exists.");
                 return [3 /*break*/, 6];
             case 3:
                 err_1 = _a.sent();
-                console.log('The file does not exist.');
+                console.log("The file does not exist.");
                 return [4 /*yield*/, (0, sharpModule_1.default)(pathImage, width, height)];
             case 4:
                 resizedImage = _a.sent();
@@ -84,11 +84,11 @@ images.get('/', function (req, res) { return __awaiter(void 0, void 0, void 0, f
             case 6:
                 // Send the resized image as a response
                 res.sendFile(outputPath);
-                console.log('Resized image saved successfully!');
+                console.log("Resized image saved successfully!");
                 return [3 /*break*/, 8];
             case 7:
                 error_1 = _a.sent();
-                console.log('Filename NOT found or NOT correct');
+                console.log("Filename NOT found or NOT correct");
                 throw error_1;
             case 8: return [2 /*return*/];
         }
