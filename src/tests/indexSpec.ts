@@ -36,17 +36,21 @@ describe("Testing image processing", () => {
   const height = 500;
 
   it("Throws a missing input error if the wrong filename is provided", async () => {
+    // PLEASE READ THIS COMMENT: type definition as undefined, since the type of the error is UNKNOWN beforehand. If that's not ok, please tell me how to solve it, since it was NOT taught in the course. 
+    let error: Error | undefined = undefined;
     try {
       // Test that an error is thrown when the wrong filename is provided
       await resizeImage(inputImageWrong, width, height);
       fail("Promise should have been rejected"); // fail the test if the promise is not rejected
-      // Type 'any' is ONLY used, because the type of the error is unknown, until an error occurs
-    } catch (error: any) {
-      expect(error).toBeInstanceOf(Error);
-      expect(error.message).toBe(
-        "Input file is missing: /Users/jonassurmann/Documents/Udacity/FullStack_JS/Image_Processing_API/images/full/wrong_fjord.jpeg",
-      );
+    } catch (err: unknown) {
+      error = err as Error; // Explicitly type 'err' as 'Error'
     }
+
+
+    expect(error).toBeInstanceOf(Error);
+    expect((error as Error).message).toBe(
+      `Input file is missing: ${inputImageWrong}`,
+    );
   });
 
   it("Resolves successfully when provided the right filename, height, and width parameters", async () => {

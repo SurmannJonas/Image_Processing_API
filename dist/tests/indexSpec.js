@@ -76,24 +76,29 @@ describe("Testing image processing", function () {
     var width = 500;
     var height = 500;
     it("Throws a missing input error if the wrong filename is provided", function () { return __awaiter(void 0, void 0, void 0, function () {
-        var error_1;
+        var error, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
+                    error = undefined;
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
                     // Test that an error is thrown when the wrong filename is provided
                     return [4 /*yield*/, (0, sharpModule_1.default)(inputImageWrong, width, height)];
-                case 1:
+                case 2:
                     // Test that an error is thrown when the wrong filename is provided
                     _a.sent();
                     fail("Promise should have been rejected"); // fail the test if the promise is not rejected
-                    return [3 /*break*/, 3];
-                case 2:
-                    error_1 = _a.sent();
-                    expect(error_1).toBeInstanceOf(Error);
-                    expect(error_1.message).toBe("Input file is missing: /Users/jonassurmann/Documents/Udacity/FullStack_JS/Image_Processing_API/images/full/wrong_fjord.jpeg");
-                    return [3 /*break*/, 3];
-                case 3: return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 3:
+                    err_1 = _a.sent();
+                    error = err_1; // Explicitly type 'err' as 'Error'
+                    return [3 /*break*/, 4];
+                case 4:
+                    expect(error).toBeInstanceOf(Error);
+                    expect(error.message).toBe("Input file is missing: ".concat(inputImageWrong));
+                    return [2 /*return*/];
             }
         });
     }); });
