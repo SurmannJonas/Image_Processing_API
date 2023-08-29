@@ -56,9 +56,16 @@ images.get("/", function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 filename = req.query.filename;
                 width = parseInt(req.query.width);
                 height = parseInt(req.query.height);
+                // Check if filename, width, and height are provided
+                if (!filename || !width || !height) {
+                    throw new Error("Missing filename, width, or height");
+                }
+                // Check if width and height are valid numbers
+                if (isNaN(width) || isNaN(height) || width <= 0 || height <= 0) {
+                    throw new Error("Invalid width or height");
+                }
                 pathImage = path_1.default.resolve(__dirname, "../../../images/full/" + filename + ".jpeg");
                 outputPath = path_1.default.resolve(__dirname, "../../../src/routes/api/" + filename + "-resized.jpeg");
-                console.log(width);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 6]);

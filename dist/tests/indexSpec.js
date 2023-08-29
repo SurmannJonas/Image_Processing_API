@@ -67,6 +67,20 @@ describe("Endpoint Test", function () {
             }
         });
     }); });
+    // Start describing the test case
+    it("should return the expected response", function () { return __awaiter(void 0, void 0, void 0, function () {
+        var response;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, request.get("/api/images?filename=fjord&height=200&width=300")];
+                case 1:
+                    response = _a.sent();
+                    // Assert that the response status is 200
+                    expect(response.status).toBe(200);
+                    return [2 /*return*/];
+            }
+        });
+    }); });
 });
 describe("Testing image processing", function () {
     // Define the input image path

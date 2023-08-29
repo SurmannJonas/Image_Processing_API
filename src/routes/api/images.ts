@@ -15,6 +15,16 @@ images.get("/", async (req, res) => {
     const width = parseInt(req.query.width as unknown as string);
     const height = parseInt(req.query.height as unknown as string);
 
+    // Check if filename, width, and height are provided
+    if (!filename || !width || !height) {
+      throw new Error("Missing filename, width, or height");
+    }
+
+    // Check if width and height are valid numbers
+    if (isNaN(width) || isNaN(height) || width <= 0 || height <= 0) {
+      throw new Error("Invalid width or height");
+    }
+
     // Define the paths for the original and resized images
     const pathImage = path.resolve(
       __dirname,
@@ -24,8 +34,6 @@ images.get("/", async (req, res) => {
       __dirname,
       "../../../src/routes/api/" + filename + "-resized.jpeg",
     );
-
-    console.log(width);
 
     //Caching mechanism - If a resized image already exists, this file is taken, instead of generating a new resized image
     try {

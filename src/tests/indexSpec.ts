@@ -22,6 +22,15 @@ describe("Endpoint Test", () => {
     // Assert that the response text is equal to 'Main API Route'
     expect(response.text).toEqual("Main API Route");
   });
+
+  // Start describing the test case
+  it("should return the expected response", async () => {
+    // Send a GET request to the '/api?filename=fjord&height=200&width=300"' endpoint, testing the complete URL incl. filname, height and width
+    const response = await request.get("/api/images?filename=fjord&height=200&width=300");
+
+    // Assert that the response status is 200
+    expect(response.status).toBe(200);
+  });
 });
 
 describe("Testing image processing", () => {
@@ -36,7 +45,7 @@ describe("Testing image processing", () => {
   const height = 500;
 
   it("Throws a missing input error if the wrong filename is provided", async () => {
-    // PLEASE READ THIS COMMENT: type definition as undefined, since the type of the error is UNKNOWN beforehand. If that's not ok, please tell me how to solve it, since it was NOT taught in the course. 
+    // PLEASE READ THIS COMMENT: type definition as undefined, since the type of the error is UNKNOWN beforehand. If that's not ok, please tell me how to solve it, since it was NOT taught in the course.
     let error: Error | undefined = undefined;
     try {
       // Test that an error is thrown when the wrong filename is provided
@@ -45,7 +54,6 @@ describe("Testing image processing", () => {
     } catch (err: unknown) {
       error = err as Error; // Explicitly type 'err' as 'Error'
     }
-
 
     expect(error).toBeInstanceOf(Error);
     expect((error as Error).message).toBe(
