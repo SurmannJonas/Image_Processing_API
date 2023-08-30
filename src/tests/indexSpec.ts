@@ -26,7 +26,9 @@ describe("Endpoint Test", () => {
   // Start describing the test case
   it("should return the expected response", async () => {
     // Send a GET request to the '/api?filename=fjord&height=200&width=300"' endpoint, testing the complete URL incl. filname, height and width
-    const response = await request.get("/api/images?filename=fjord&height=200&width=300");
+    const response = await request.get(
+      "/api/images?filename=fjord&height=200&width=300",
+    );
 
     // Assert that the response status is 200
     expect(response.status).toBe(200);

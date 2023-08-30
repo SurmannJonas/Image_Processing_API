@@ -32,7 +32,7 @@ images.get("/", async (req, res) => {
     );
     const outputPath = path.resolve(
       __dirname,
-      "../../../src/routes/api/" + filename + "-resized.jpeg",
+      "../../../src/routes/api/" + filename + "-" + height + "-" + width + ".jpeg",
     );
 
     //Caching mechanism - If a resized image already exists, this file is taken, instead of generating a new resized image
@@ -40,6 +40,7 @@ images.get("/", async (req, res) => {
       // Check if the resized image already exists
       await statAsync(outputPath);
       console.log("The file exists.");
+
     } catch (err) {
       console.log("The file does not exist.");
 
